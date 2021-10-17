@@ -1,27 +1,21 @@
----
-output: github_document
----
-
-
 
 # Phase1.2QualityControlRpackage.0
 
-The goal of Phase1.2QCpackage is to perform Quality Control on data generated for Phase 1.2.
-
+The goal of Phase1.2QCpackage is to perform Quality Control on data
+generated for Phase
+1.2.
 
 ## Installation
 
-
-```{r, eval=FALSE}
+``` r
 devtools::install_github("https://github.com/claralea/Phase1.2QualityControlRPackage.0", subdir="FourCePhase2.1Data", upgrade=FALSE)
 ## basic example code
 ```
 
-
 ## Running QC
-```{r, eval=FALSE}
 
-### enter input path, output path and site name
+``` r
+### enter the following
 dir.input = ""
 dir.output = ""
 site.nm=""
@@ -43,4 +37,3 @@ runQC_Phase1.2_report(file.nm1, dat.DailyCounts, dat.ClinicalCourse, dat.AgeSex,
                       dat.Labs, dat.RaceByLocalCode, dat.RaceBy4CECode, dat.LabCodes,
                       nm.report.file, icd.list, lab.range, site.nm)
 ```
-
