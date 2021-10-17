@@ -22,7 +22,7 @@ You can install the released version of Phase1.2QualityControlRpackage.0 from [C
 
 
 ```{r, eval=FALSE}
-devtools::install_github("https://github.com/covidclinical/Phase2.1DataRPackage", subdir="FourCePhase2.1Data", upgrade=FALSE)
+devtools::install_github("https://github.com/claralea/Phase1.2QualityControlRPackage.0", subdir="FourCePhase2.1Data", upgrade=FALSE)
 ## basic example code
 ```
 
