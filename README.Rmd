@@ -13,7 +13,7 @@ The goal of Phase1.2QCpackage is to perform Quality Control on data generated fo
 
 
 ```{r, eval=FALSE}
-devtools::install_github("https://github.com/claralea/Phase1.2QualityControlRPackage.0", subdir="FourCePhase2.1Data", upgrade=FALSE)
+devtools::install_github("https://github.com/claralea/Phase1.2QualityControlRPackage.0", upgrade=FALSE)
 ## basic example code
 ```
 

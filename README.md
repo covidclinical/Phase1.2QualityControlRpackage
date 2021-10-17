@@ -8,14 +8,14 @@ generated for Phase
 ## Installation
 
 ``` r
-devtools::install_github("https://github.com/claralea/Phase1.2QualityControlRPackage.0", subdir="FourCePhase2.1Data", upgrade=FALSE)
+devtools::install_github("https://github.com/claralea/Phase1.2QualityControlRPackage.0", upgrade=FALSE)
 ## basic example code
 ```
 
 ## Running QC
 
 ``` r
-### enter the following
+### enter input path, output path and site name
 dir.input = ""
 dir.output = ""
 site.nm=""
