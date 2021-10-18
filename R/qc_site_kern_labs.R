@@ -29,6 +29,9 @@ err_report_lab_site=function(dat.Labs, dat.AgeSex, site.nm){
   err5=any(dat.site%in%c(Inf, -Inf, NA, NaN))
 
   # Less than 33% of all patients have the main labs
+  lab.want = data.frame(loinc=c('1988-5','2276-4','3255-7','33959-8','8066-5','8066-7','2160-0'))
+  lab.have = data.frame(loinc=unique(dat.site[,'loinc']))
+
   pat.thresh = floor(0.33*as.numeric(dat.AgeSex %>% filter(age_group=='all', sex=='all') %>% select(pts_all)))
   total.pat = dat.site%>%group_by(loinc)%>%
     filter(loinc%in%lab.want$loinc)%>%
@@ -50,6 +53,7 @@ err_report_lab_site=function(dat.Labs, dat.AgeSex, site.nm){
 ##########################
 err_report_lab_miss=function(dat.Labs, site.nm){
 
+  dat.site=dat.Labs
   # Some important labs are missing
   # CRP(1988-5), ferritin(2276-4), fibrinogen(3255-7), procalcitonin(33959-8), D-dimer(48066-5,48066-7), creatinine(2160-0)
   lab.want = data.frame(loinc=c('1988-5','2276-4','3255-7','33959-8','8066-5','8066-7','2160-0'))
@@ -90,8 +94,8 @@ err_report_lab_unit_site=function(dat.Labs, lab.range, site.nm){
       err.tmp=1*(sum(tmp$mean_log_value_all<tmp$LB)>(0.9*dim(tmp)[1])|sum(tmp$mean_log_value_all>tmp$UB)>(0.9*dim(tmp)[1]))
       err.tmp=c(site.nm, err.tmp, paste0("lab unit issue for ", nm.lab))
       err.report=rbind(err.report, err.tmp)
-      }
     }
+  }
   if(is.null(err.report)!=1){
     err.report=data.frame(err.report)}else{err.report=data.frame(matrix(NA,1,3))
     }
