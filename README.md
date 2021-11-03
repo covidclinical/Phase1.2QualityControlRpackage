@@ -8,7 +8,7 @@ generated for Phase
 ## Installation
 
 ``` r
-devtools::install_github("https://github.com/claralea/Phase1.2QualityControlRPackage.0", upgrade=FALSE)
+devtools::install_github("https://github.com/covidclinical/Phase1.2QualityControlRPackage", upgrade=FALSE)
 ## basic example code
 ```
 
