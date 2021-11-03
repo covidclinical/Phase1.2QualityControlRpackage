@@ -1,8 +1,23 @@
 sink.txt=function(x, file, method=print, append){sink(file, append=append); method(x); sink()}
-
+#' Run QC
+#'
+#' @param file.nm1 path and name of output pdf (string)
+#' @param dat.DailyCounts DailyCounts
+#' @param dat.ClinicalCourse ClinicalCourse
+#' @param dat.AgeSex AgeSex
+#' @param dat.DiagProcMed DiagProcMed
+#' @param dat.Labs Labs
+#' @param dat.RaceByLocalCode RaceByLocalCode
+#' @param dat.RaceBy4CECode RaceBy4CECode
+#' @param dat.LabCodes LabCodes
+#' @param icd.list list of icd codes
+#' @param lab.range range of normal lab values
+#' @param site.nm site name (string)
+#' @return QC file
+#' @export
 runQC_Phase1.2_report=function(file.nm1, dat.DailyCounts, dat.ClinicalCourse, dat.AgeSex, dat.DiagProcMed,
                                dat.Labs, dat.RaceByLocalCode, dat.RaceBy4CECode, dat.LabCodes,
-                               nm.report.file, icd.list, lab.range, site.nm){
+                               icd.list, lab.range, site.nm){
 
   print(site.nm)
   race.list.all = c('asian','black','no_information','other','white','american_indian','hawaiian_pacific_islander')
@@ -49,7 +64,7 @@ runQC_Phase1.2_report=function(file.nm1, dat.DailyCounts, dat.ClinicalCourse, da
 
     qc.res=qc_site(dat.DailyCounts.c, dat.ClinicalCourse.c, dat.AgeSex.c, dat.DiagProcMed.c,
                    dat.Labs.c, dat.RaceByLocalCode.c, dat.RaceBy4CECode.c, dat.LabCodes,
-                   nm.report.file, icd.list, lab.range, site.nm)
+                   icd.list, lab.range, site.nm)
 
 
     colnames(qc.res$qc.grp$err.report)=
@@ -110,7 +125,7 @@ runQC_Phase1.2_report=function(file.nm1, dat.DailyCounts, dat.ClinicalCourse, da
     tryCatch(sink.txt("\n\nLabs missing:\n", file=file.nm1, cat, append=T))
     tryCatch(sink.txt(as.data.frame(qc.res$qc.lab.mis$err.report), file=file.nm1, print, append=T), error=function(e) NA)
     tryCatch(sink.txt("\n\nLab units:\n",file=file.nm1, cat, append=T))
-    if(dim(qc.res$qc.lab.val$err.report)[1]!=0 & is.na(qc.res$qc.lab.val$err.report[1])!=1){
+    if(dim(qc.res$qc.lab.val$err.report)[1]!=0 ){
       tryCatch(sink.txt(as.data.frame(qc.res$qc.lab.val$err.report), file=file.nm1, print, append=T), error=function(e) NA)}else{
         sink.txt("no issue identified\n", file=file.nm1, cat, append=T)
       }

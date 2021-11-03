@@ -1,7 +1,7 @@
 
 qc_site=function(dat.DailyCounts, dat.ClinicalCourse, dat.AgeSex, dat.DiagProcMed,
                  dat.Labs, dat.RaceByLocalCode, dat.RaceBy4CECode, dat.LabCodes,
-                 nm.report.file, icd.list, lab.range, site.nm){
+                 icd.list, lab.range, site.nm){
 
   # qc_site_kern
   qc.grp = err_report_missing_demographic_group(dat.DailyCounts, dat.ClinicalCourse,

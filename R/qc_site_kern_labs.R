@@ -1,6 +1,7 @@
 ##########################
 ##########  Lab
 ##########################
+#' @import dplyr
 err_report_lab_site=function(dat.Labs, dat.AgeSex, site.nm){
   err.label=c(
     "N_all < N_ever_severe",

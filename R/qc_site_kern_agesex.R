@@ -1,6 +1,7 @@
 ##########################
 ##########  AgeSex
 ##########################
+#' @import dplyr
 err_report_agesex_site=function(dat.AgeSex, site.nm){
   err.label=
     c(
