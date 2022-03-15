@@ -4,45 +4,14 @@
 \alias{runQC_Phase1.2_report}
 \title{Run QC}
 \usage{
-runQC_Phase1.2_report(
-  file.nm1,
-  dat.DailyCounts,
-  dat.ClinicalCourse,
-  dat.AgeSex,
-  dat.DiagProcMed,
-  dat.Labs,
-  dat.RaceByLocalCode,
-  dat.RaceBy4CECode,
-  dat.LabCodes,
-  icd.list,
-  lab.range,
-  site.nm
-)
+runQC_Phase1.2_report(dir.input, dir.output, site.nm)
 }
 \arguments{
-\item{file.nm1}{path and name of output pdf (string)}
+\item{dir.input}{path that contains phase 1.2 data}
 
-\item{dat.DailyCounts}{DailyCounts}
+\item{dir.output}{path to save the QC report}
 
-\item{dat.ClinicalCourse}{ClinicalCourse}
-
-\item{dat.AgeSex}{AgeSex}
-
-\item{dat.DiagProcMed}{DiagProcMed}
-
-\item{dat.Labs}{Labs}
-
-\item{dat.RaceByLocalCode}{RaceByLocalCode}
-
-\item{dat.RaceBy4CECode}{RaceBy4CECode}
-
-\item{dat.LabCodes}{LabCodes}
-
-\item{icd.list}{list of icd codes}
-
-\item{lab.range}{range of normal lab values}
-
-\item{site.nm}{site name (string)}
+\item{site.nm}{4CE site ID (string)}
 }
 \value{
 QC file

@@ -71,7 +71,7 @@ err_report_lab_miss=function(dat.Labs, site.nm){
 ##########################
 ##########  Lab units
 ##########################
-err_report_lab_unit_site=function(dat.Labs, lab.range, site.nm){
+err_report_lab_unit_site=function(dat.Labs, site.nm){
   dat=dat.Labs
   colnames(dat)=tolower(colnames(dat))
 
@@ -84,7 +84,6 @@ err_report_lab_unit_site=function(dat.Labs, lab.range, site.nm){
   comb.lab=comb.lab[which(comb.lab$days_since_admission%in%c(0:30)),]
   err.report=NULL
   for(nm.lab in nm.lab.all){
-    print(nm.lab)
     tmp=comb.lab[comb.lab$loinc%in%nm.lab,c("days_since_admission", "mean_log_value_all")]
     tmp$mean_log_value_all[tmp$mean_log_value_all%in%c(-99,-999, -Inf, Inf)]=NA
     tmp=tmp[which(is.na(tmp$mean_log_value_all)!=1),]

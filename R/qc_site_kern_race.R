@@ -53,14 +53,15 @@ err_report_race_site=function(dat.RaceBy4CECode, dat.RaceByLocalCode, site.nm){
 ##########################
 
 
-err_report_missing_race_group=function(dat.RaceByLocalCode, dat.RaceBy4CECode, site.nm){
+err_report_missing_race_group=function(dat.RaceByLocalCode, dat.RaceBy4CECode, site.nm, race.list.all){
 
+  err.label=c("Missing race category")
   all_file = list(dat.RaceByLocalCode, dat.RaceBy4CECode)
   all_filename = c("RaceByLocalCode", "RaceBy4CECode")
   i = 1
 
-  #report=data.frame(site.nm, label=err.label, err)
-  err.report = NULL
+
+  err = NULL
   missing_race_all = NULL
 
   for (file in all_file){
@@ -69,7 +70,7 @@ err_report_missing_race_group=function(dat.RaceByLocalCode, dat.RaceBy4CECode, s
     race_list_now <- unique(unlist(file[c("race_4ce")]))
 
     #print(filename_now)
-    missing_race = setdiff(race.list.all,race_list_now)
+    missing_race = setdiff(race.list.all,c(race_list_now,"other"))
     missing_race_merged = paste( unlist(missing_race), collapse=',')
     missing_race_all = c(missing_race_all, missing_race_merged)
     #print(missing_race_merged)
@@ -77,10 +78,12 @@ err_report_missing_race_group=function(dat.RaceByLocalCode, dat.RaceBy4CECode, s
     #print(combined_data)
     i=i+1
   }
-  report= data.frame(filename=all_filename, missing_race=missing_race_all)
+  err = c(err, length(missing_race_all))
+  #report= data.frame(filename=all_filename, missing_race=missing_race_all)
   err.label = c("filename", "missing_race")
-  err.report=report
-  list(err.report=err.report, err.label=err.label)
+  report = data.frame(site.nm, label=err.label, err)
+  err.report = report[report[,"err"]==T, c("site.nm", "label")]
+  list(err.report = err.report, err.label = err.label)
 }
 
 

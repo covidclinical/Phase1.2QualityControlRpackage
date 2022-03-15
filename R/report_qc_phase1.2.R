@@ -1,25 +1,26 @@
 sink.txt=function(x, file, method=print, append){sink(file, append=append); method(x); sink()}
 #' Run QC
-#'
-#' @param file.nm1 path and name of output pdf (string)
-#' @param dat.DailyCounts DailyCounts
-#' @param dat.ClinicalCourse ClinicalCourse
-#' @param dat.AgeSex AgeSex
-#' @param dat.DiagProcMed DiagProcMed
-#' @param dat.Labs Labs
-#' @param dat.RaceByLocalCode RaceByLocalCode
-#' @param dat.RaceBy4CECode RaceBy4CECode
-#' @param dat.LabCodes LabCodes
-#' @param icd.list list of icd codes
-#' @param lab.range range of normal lab values
-#' @param site.nm site name (string)
+#' @param dir.input path that contains phase 1.2 data
+#' @param dir.output path to save the QC report
+#' @param site.nm 4CE site ID (string)
 #' @return QC file
+#' @importFrom utils read.csv
 #' @export
-runQC_Phase1.2_report=function(file.nm1, dat.DailyCounts, dat.ClinicalCourse, dat.AgeSex, dat.DiagProcMed,
-                               dat.Labs, dat.RaceByLocalCode, dat.RaceBy4CECode, dat.LabCodes,
-                               icd.list, lab.range, site.nm){
+runQC_Phase1.2_report=function(dir.input, dir.output, site.nm){
+  ### read the data
+  dat.DailyCounts=read.csv(paste0(dir.input,"/DailyCounts-",site.nm,".csv"))
+  dat.ClinicalCourse=read.csv(paste0(dir.input,"/ClinicalCourse-",site.nm,".csv"))
+  dat.AgeSex=read.csv(paste0(dir.input,"/AgeSex-",site.nm,".csv"))
+  dat.DiagProcMed=read.csv(paste0(dir.input,"/DiagProcMed-",site.nm,".csv"))
+  dat.Labs=read.csv(paste0(dir.input,"/Labs-",site.nm,".csv"))
+  dat.LabCodes=read.csv(paste0(dir.input,"/LabCodes-",site.nm,".csv"))
+  dat.RaceByLocalCode=read.csv(paste0(dir.input,"/RaceByLocalCode-",site.nm,".csv"))
+  dat.RaceBy4CECode=read.csv(paste0(dir.input,"/RaceBy4CECode-",site.nm,".csv"))
 
   print(site.nm)
+
+  file.nm1 = paste0(dir.output, "/QC_report_phase1.2_", site.nm,".txt")
+
   race.list.all = c('asian','black','no_information','other','white','american_indian','hawaiian_pacific_islander')
   cohort.cat = c('PosAdm','U071Adm','NegAdm','PosNotAdm','U071NotAdm','NegNotAdm')
   quarter.cat = c('2020Q1','2020Q2','2020Q3','2020Q4','2021Q1','2021Q2')
@@ -64,7 +65,7 @@ runQC_Phase1.2_report=function(file.nm1, dat.DailyCounts, dat.ClinicalCourse, da
 
     qc.res=qc_site(dat.DailyCounts.c, dat.ClinicalCourse.c, dat.AgeSex.c, dat.DiagProcMed.c,
                    dat.Labs.c, dat.RaceByLocalCode.c, dat.RaceBy4CECode.c, dat.LabCodes,
-                   icd.list, lab.range, site.nm)
+                   site.nm, cohort.list.all, race.list.all)
 
 
     colnames(qc.res$qc.grp$err.report)=
@@ -78,7 +79,7 @@ runQC_Phase1.2_report=function(file.nm1, dat.DailyCounts, dat.ClinicalCourse, da
       colnames(qc.res$qc.lab$err.report)=
       colnames(qc.res$qc.lab.val$err.report)=
       colnames(qc.res$qc.rc$err.report)=
-      colnames(qc.res$qc.rc.mis$err.report)=
+      #colnames(qc.res$qc.rc.mis$err.report)=
       c("SiteID", "Possible Issues")
 
 
@@ -134,14 +135,14 @@ runQC_Phase1.2_report=function(file.nm1, dat.DailyCounts, dat.ClinicalCourse, da
       tryCatch(sink.txt(as.data.frame(qc.res$qc.rc$err.report), file=file.nm1, print, append=T), error=function(e) NA)}else{
         sink.txt("no issue identified\n", file=file.nm1, cat, append=T)
       }
-    tryCatch(sink.txt("\n\nMissing Race Category:\n",file=file.nm1, cat, append=T))
-    if(dim(qc.res$qc.rc.mis$err.report)[1]!=0 ){
-      tryCatch(sink.txt(as.data.frame(qc.res$qc.rc.mis$err.report), file=file.nm1, print, append=T), error=function(e) NA)}else{
-        sink.txt("no issue identified\n", file=file.nm1, cat, append=T)
-      }
+    # tryCatch(sink.txt("\n\nMissing Race Category:\n",file=file.nm1, cat, append=T))
+    # if(dim(qc.res$qc.rc.mis$err.report)[1]!=0 ){
+    #   tryCatch(sink.txt(as.data.frame(qc.res$qc.rc.mis$err.report), file=file.nm1, print, append=T), error=function(e) NA)}else{
+    #     sink.txt("no issue identified\n", file=file.nm1, cat, append=T)
+    #   }
     sink.txt("\n\n______________________ \n",file=file.nm1, cat, append=T)
   }
 
   sink.txt("\n\n______________________ END\n",file=file.nm1, cat, append=T)
-  qc.res
+  #qc.res
 }

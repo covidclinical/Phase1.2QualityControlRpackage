@@ -6,7 +6,7 @@
 ## QC NUMBER 1: MISSING DEMOGRAPHIC GROUP
 ##########################
 err_report_missing_demographic_group=function(dat.DailyCounts, dat.ClinicalCourse, dat.AgeSex, dat.DiagProcMed,
-                                              dat.Labs, dat.RaceByLocalCode, dat.RaceBy4CECode, site.nm){
+                                              dat.Labs, dat.RaceByLocalCode, dat.RaceBy4CECode, site.nm, cohort.list.all){
 
   all_file = list(dat.DailyCounts, dat.ClinicalCourse,dat.AgeSex, dat.DiagProcMed,
                   dat.Labs, dat.RaceByLocalCode, dat.RaceBy4CECode)

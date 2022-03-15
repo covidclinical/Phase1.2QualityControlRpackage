@@ -2,3 +2,4 @@
 
 export(runQC_Phase1.2_report)
 import(dplyr)
+importFrom(utils,read.csv)
